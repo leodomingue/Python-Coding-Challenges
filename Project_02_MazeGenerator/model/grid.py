@@ -28,6 +28,14 @@ class Grid:
             cell = self.get_cell(position_cell[0], position_cell[1])
             cell.is_visit()
 
+    def make_set_wall(self, set):
+        for position_cell in set:
+            self.grid[position_cell[0]][position_cell[1]] = WallCell(position_cell[0],position_cell[1])
+
+    def make_set_path(self, set):
+        for position_cell in set:
+            self.set_cell(position_cell[0], position_cell[1], PathCell(position_cell[0],position_cell[1]))
+
     def set_all_wall(self):
         for row in range(self.rows):
             for col in range(self.columns):
@@ -40,14 +48,14 @@ class Grid:
                 print('W' if isinstance(cell, WallCell) else 'P', end=' ')
             print()
 
-    def add_random_walls(self, probability=0.32):
+    def add_random_paths(self, probability=0.5):
     
         for row in range(1, self.rows - 1):  
             for col in range(1, self.columns - 1):
                 if random.random() < probability:  
                     current_cell = self.get_cell(row, col)
-                    if isinstance(current_cell, PathCell): 
-                        self.set_cell(row, col, WallCell(row, col))
+                    if isinstance(current_cell, WallCell): 
+                        self.set_cell(row, col, PathCell(row, col))
 
     def is_inside(self, row, col):
         return 0 <= row < self.number_of_rows() and 0 <= col < self.number_of_columns()

@@ -46,7 +46,7 @@ class DFS:
 
         
     def _neighbors_1(self, grid, row, col):
-        directions = random.sample([(-1, 0), (1, 0), (0, -1), (0, 1)], k=4)
+        directions = random.sample([(1, 0), (0, 1), (-1,0)], k=3)
         result = []
 
         for direction_x, direction_y in directions:

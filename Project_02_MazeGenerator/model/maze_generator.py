@@ -22,15 +22,20 @@ class RandomMazeGenerator:
 
         layout_generator = BasicBorderGridGenerator()
         layout_generator.generate(grid)
-        grid.add_random_walls()
+        
         grid.set_cell(initial_position[0], initial_position[1], PathCell(initial_position[0], initial_position[1]))
         grid.set_cell(final_position[0], final_position[1], PathCell(final_position[0], final_position[1]))
 
         dfs = DFS(initial_position, final_position)
 
 
+        dfs.make_path_in_grid_1(grid)
+        path = dfs.return_visited_cells()
 
-        dfs.make_path_in_grid_2(grid)
+        grid.set_all_wall()
+        grid.make_set_path(path)
+        grid.add_random_paths()
+
         grid.set_cell(initial_position[0], initial_position[1], PathCell(initial_position[0], initial_position[1]))
         grid.set_cell(final_position[0], final_position[1], PathCell(final_position[0], final_position[1]))
 
