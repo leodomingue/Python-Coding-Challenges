@@ -28,6 +28,11 @@ class Grid:
             cell = self.get_cell(position_cell[0], position_cell[1])
             cell.is_visit()
 
+    def set_unmarked(self, set):
+        for position_cell in set:
+            cell = self.get_cell(position_cell[0], position_cell[1])
+            cell.is_unvisit()
+
     def make_set_wall(self, set):
         for position_cell in set:
             self.grid[position_cell[0]][position_cell[1]] = WallCell(position_cell[0],position_cell[1])

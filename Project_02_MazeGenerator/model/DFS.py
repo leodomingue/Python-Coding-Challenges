@@ -10,8 +10,8 @@ class DFS:
         self.final_position = final_position
         self.found = False
 
-    def make_path_in_grid_2(self, grid):
-        self._dfs_2(grid, self.initial_position[0], self.initial_position[1])
+    def make_path_in_grid_normal(self, grid):
+        self._dfs_normal(grid, self.initial_position[0], self.initial_position[1])
 
     def make_path_in_grid_1(self, grid):
         self._dfs(grid, self.initial_position[0], self.initial_position[1])
@@ -30,20 +30,7 @@ class DFS:
             if (new_position_x,new_position_y) not in self.visited:
                 self._dfs(grid,new_position_x, new_position_y)
 
-    def _dfs_2(self, grid, row, col):
-        if self.found:  
-            return
-        
-        self.visited.add((row, col))
-
-        if (row, col) == self.final_position:
-            self.found = True
-            return 
-
-        for new_position_x, new_position_y in self._neighbors_2(grid, row, col):
-            if (new_position_x,new_position_y) not in self.visited:
-                self._dfs(grid,new_position_x, new_position_y)
-
+    
         
     def _neighbors_1(self, grid, row, col):
         directions = random.sample([(1, 0), (0, 1), (-1,0)], k=3)
@@ -57,8 +44,22 @@ class DFS:
 
         return result
 
-    def _neighbors_2(self, grid, row, col):
-        directions = random.sample([(-2, 0), (2, 0), (0, -2), (0, 2)], k=4)
+    def _dfs_normal(self, grid, row, col):
+        if self.found:  
+            return
+        
+        self.visited.add((row, col))
+
+        if (row, col) == self.final_position:
+            self.found = True
+            return 
+
+        for new_position_x, new_position_y in self._neighbors(grid, row, col):
+            if (new_position_x,new_position_y) not in self.visited:
+                self._dfs(grid,new_position_x, new_position_y)
+
+    def _neighbors(self, grid, row, col):
+        directions = random.sample([(1, 0), (0, 1), (-1,0), (0,-1)], k=4)
         result = []
 
         for direction_x, direction_y in directions:
@@ -68,6 +69,7 @@ class DFS:
                 result.append((new_position_x, new_position_y))
 
         return result
+
     
 
     def return_visited_cells(self):
